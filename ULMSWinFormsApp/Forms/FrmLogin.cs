@@ -14,8 +14,17 @@ namespace ULMSWinFormsApp
             string username = txtUsername.Text;
             string password = txtPassword.Text;
 
-            // Intentional faulty validation logic (for testing scenario)
-            if (username == "admin" || password == "1234")
+            // BUG-01 FIX: Validate that fields are not empty before processing
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Username and password cannot be empty.",
+                                "Validation Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return;
+            }
+
+            // BUG-01 FIX: Changed || to && so BOTH username AND password must match
+            if (username == "admin" && password == "admin123")
             {
                 MessageBox.Show("Login Successful!");
 
@@ -25,7 +34,9 @@ namespace ULMSWinFormsApp
             }
             else
             {
-                MessageBox.Show("Invalid login credentials.");
+                MessageBox.Show("Invalid username or password. Please try again.",
+                                "Login Failed", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
         }
 

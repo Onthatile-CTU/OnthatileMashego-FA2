@@ -15,14 +15,26 @@ namespace ULMSWinFormsApp.Forms
             InitializeComponent();
         }
 
-        private void btnGenerateReport_Click(object sender, EventArgs e)
+        private async void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            // Intentional weak validation and slow processing for testing purposes
+            // BUG-05 FIX: Validate inputs before generating
+            if (string.IsNullOrWhiteSpace(cmbReportType.Text))
+            {
+                MessageBox.Show("Please select a report type.",
+                                "Validation Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return;
+            }
+
             string reportType = cmbReportType.Text;
             string studentId = txtReportStudentId.Text;
 
-            // Intentional poor performance simulation
-            Thread.Sleep(4000);
+            // BUG-05 FIX: Replaced Thread.Sleep(4000) with async Task.Delay to avoid
+            // blocking the UI thread. The form now stays responsive during report generation.
+            btnGenerateReport.Enabled = false;
+            txtReportOutput.Text = "Generating report, please wait...";
+
+            await Task.Delay(500); // Simulates a non-blocking async data load
 
             StringBuilder report = new StringBuilder();
 
@@ -40,10 +52,13 @@ namespace ULMSWinFormsApp.Forms
             }
             else if (reportType == "Marks Report")
             {
-                report.AppendLine("Subject 1: 78");
-                report.AppendLine("Subject 2: 65");
-                report.AppendLine("Subject 3: 80");
-                report.AppendLine("Average: 169");
+                // BUG-05 FIX: Corrected average — was hardcoded as 169 (a sum, not an average)
+                double s1 = 78, s2 = 65, s3 = 80;
+                double avg = Math.Round((s1 + s2 + s3) / 3, 2);
+                report.AppendLine("Subject 1: " + s1);
+                report.AppendLine("Subject 2: " + s2);
+                report.AppendLine("Subject 3: " + s3);
+                report.AppendLine("Average: " + avg);
             }
             else if (reportType == "Enrollment Report")
             {
@@ -57,6 +72,7 @@ namespace ULMSWinFormsApp.Forms
             }
 
             txtReportOutput.Text = report.ToString();
+            btnGenerateReport.Enabled = true;
         }
 
         private void btnClearReport_Click(object sender, EventArgs e)

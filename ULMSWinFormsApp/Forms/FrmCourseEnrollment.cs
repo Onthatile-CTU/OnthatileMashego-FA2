@@ -16,16 +16,47 @@ namespace ULMSWinFormsApp.Forms
             InitializeComponent();
         }
 
+        // BUG-02 FIX: Track enrolments in a list so duplicates can be detected
+        private static List<Enrollment> _enrollments = new List<Enrollment>();
+
         private void btnEnroll_Click(object sender, EventArgs e)
         {
-            // Intentional weak business-rule validation for testing purposes
+            // BUG-02 FIX: Validate that required fields are not empty
+            if (string.IsNullOrWhiteSpace(txtEnrollStudentId.Text) ||
+                string.IsNullOrWhiteSpace(txtEnrollStudentName.Text) ||
+                string.IsNullOrWhiteSpace(cmbCourse.Text) ||
+                string.IsNullOrWhiteSpace(cmbSemester.Text))
+            {
+                MessageBox.Show("All fields are required before enrolling.",
+                                "Validation Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return;
+            }
+
+            string studentId = txtEnrollStudentId.Text.Trim();
+            string courseName = cmbCourse.Text.Trim();
+
+            // BUG-02 FIX: Check for duplicate enrolment before adding
+            bool alreadyEnrolled = _enrollments.Exists(e =>
+                e.StudentId == studentId && e.CourseName == courseName);
+
+            if (alreadyEnrolled)
+            {
+                MessageBox.Show("This student is already enrolled in the selected course.",
+                                "Duplicate Enrolment", MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return;
+            }
+
             Enrollment enrollment = new Enrollment
             {
-                StudentId = txtEnrollStudentId.Text,
-                StudentName = txtEnrollStudentName.Text,
-                CourseName = cmbCourse.Text,
-                Semester = cmbSemester.Text
+                StudentId = studentId,
+                StudentName = txtEnrollStudentName.Text.Trim(),
+                CourseName = courseName,
+                Semester = cmbSemester.Text.Trim()
             };
+
+            _enrollments.Add(enrollment);
 
             txtEnrollmentOutput.Text =
                 "Enrollment completed successfully!" + Environment.NewLine +
