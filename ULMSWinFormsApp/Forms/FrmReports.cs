@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+//using ULMSWinFormsApp.Models;
 
 namespace ULMSWinFormsApp.Forms
 {
@@ -13,16 +14,16 @@ namespace ULMSWinFormsApp.Forms
         public FrmReports()
         {
             InitializeComponent();
-            LockDropdownsToListOnly();
+            //LockDropdownsToListOnly();
         }
 
-        // FIX: Prevent typed input in ComboBoxes
+        /*// FIX: Prevent typed input in ComboBoxes
         // DropDownStyle.DropDownList makes the combo read-only at design time,
         //ENFORCES DROPDOWN
         private void LockDropdownsToListOnly()
         {
             cmbReportType.DropDownStyle = ComboBoxStyle.DropDownList;
-        }
+        }*/
 
         private async void btnGenerateReport_Click(object sender, EventArgs e)
         {
