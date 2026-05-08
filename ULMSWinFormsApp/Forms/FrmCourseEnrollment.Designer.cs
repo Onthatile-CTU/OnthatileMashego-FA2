@@ -65,7 +65,7 @@
             // txtEnrollStudentId
             // 
             txtEnrollStudentId.Location = new Point(286, 42);
-            txtEnrollStudentId.Margin = new Padding(5, 5, 5, 5);
+            txtEnrollStudentId.Margin = new Padding(5);
             txtEnrollStudentId.Name = "txtEnrollStudentId";
             txtEnrollStudentId.Size = new Size(362, 39);
             txtEnrollStudentId.TabIndex = 2;
@@ -73,7 +73,7 @@
             // txtEnrollStudentName
             // 
             txtEnrollStudentName.Location = new Point(286, 120);
-            txtEnrollStudentName.Margin = new Padding(5, 5, 5, 5);
+            txtEnrollStudentName.Margin = new Padding(5);
             txtEnrollStudentName.Name = "txtEnrollStudentName";
             txtEnrollStudentName.Size = new Size(362, 39);
             txtEnrollStudentName.TabIndex = 3;
@@ -91,9 +91,9 @@
             // cmbCourse
             // 
             cmbCourse.FormattingEnabled = true;
-            cmbCourse.Items.AddRange(new object[] { "Programming 1", "Database Systems", "Web Development", "", "Software Testing" });
+            cmbCourse.Items.AddRange(new object[] { "Programming 1", "Database Systems", "Web Development", "Software Testing" });
             cmbCourse.Location = new Point(286, 227);
-            cmbCourse.Margin = new Padding(5, 5, 5, 5);
+            cmbCourse.Margin = new Padding(5);
             cmbCourse.Name = "cmbCourse";
             cmbCourse.Size = new Size(362, 40);
             cmbCourse.TabIndex = 5;
@@ -111,17 +111,18 @@
             // cmbSemester
             // 
             cmbSemester.FormattingEnabled = true;
-            cmbSemester.Items.AddRange(new object[] { "Semester 1", "", "Semester 2" });
+            cmbSemester.Items.AddRange(new object[] { "Semester 1", "Semester 2" });
             cmbSemester.Location = new Point(278, 330);
-            cmbSemester.Margin = new Padding(5, 5, 5, 5);
+            cmbSemester.Margin = new Padding(5);
             cmbSemester.Name = "cmbSemester";
             cmbSemester.Size = new Size(370, 40);
             cmbSemester.TabIndex = 7;
+            cmbSemester.SelectedIndexChanged += cmbSemester_SelectedIndexChanged;
             // 
             // btnEnroll
             // 
             btnEnroll.Location = new Point(249, 459);
-            btnEnroll.Margin = new Padding(5, 5, 5, 5);
+            btnEnroll.Margin = new Padding(5);
             btnEnroll.Name = "btnEnroll";
             btnEnroll.Size = new Size(214, 75);
             btnEnroll.TabIndex = 8;
@@ -132,7 +133,7 @@
             // btnClearEnrollment
             // 
             btnClearEnrollment.Location = new Point(502, 459);
-            btnClearEnrollment.Margin = new Padding(5, 5, 5, 5);
+            btnClearEnrollment.Margin = new Padding(5);
             btnClearEnrollment.Name = "btnClearEnrollment";
             btnClearEnrollment.Size = new Size(214, 75);
             btnClearEnrollment.TabIndex = 9;
@@ -143,7 +144,7 @@
             // btnBackEnrollment
             // 
             btnBackEnrollment.Location = new Point(769, 459);
-            btnBackEnrollment.Margin = new Padding(5, 5, 5, 5);
+            btnBackEnrollment.Margin = new Padding(5);
             btnBackEnrollment.Name = "btnBackEnrollment";
             btnBackEnrollment.Size = new Size(214, 75);
             btnBackEnrollment.TabIndex = 10;
@@ -154,7 +155,7 @@
             // txtEnrollmentOutput
             // 
             txtEnrollmentOutput.Location = new Point(769, 37);
-            txtEnrollmentOutput.Margin = new Padding(5, 5, 5, 5);
+            txtEnrollmentOutput.Margin = new Padding(5);
             txtEnrollmentOutput.Multiline = true;
             txtEnrollmentOutput.Name = "txtEnrollmentOutput";
             txtEnrollmentOutput.ReadOnly = true;
@@ -178,7 +179,7 @@
             Controls.Add(txtEnrollStudentId);
             Controls.Add(label2);
             Controls.Add(label1);
-            Margin = new Padding(5, 5, 5, 5);
+            Margin = new Padding(5);
             Name = "FrmCourseEnrollment";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Umoja Learning Management System - Course Enrolment";

@@ -101,7 +101,7 @@ namespace ULMSWinFormsApp.Forms
             Enrollment enrollment = new Enrollment
             {
                 StudentId = studentId,
-                StudentName =student.FullName,
+                StudentName = student.FullName,
                 CourseName = courseName,
                 Semester = semester
             };
@@ -151,6 +151,9 @@ namespace ULMSWinFormsApp.Forms
             // Code to run when the form loads
         }
 
+        private void cmbSemester_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }

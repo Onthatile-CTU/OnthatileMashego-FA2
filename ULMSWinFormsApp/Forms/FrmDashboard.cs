@@ -15,11 +15,36 @@ namespace ULMSWinFormsApp.Forms
             InitializeComponent();
         }
 
-        private void btnLogout_Click(object sender, EventArgs e)
+        /*private void btnLogout_Click(object sender, EventArgs e)
         {
             FrmLogin login = new FrmLogin();
             login.Show();
             this.Close();
+        }*/
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show(
+                "Would you like to log out or exit the application?\n\n" +
+                "Yes = Log Out\n" +
+                "No = Exit Application",
+                "Choose an Option",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                // Log out
+                var login = new FrmLogin();
+                login.Show();
+                this.Close();
+            }
+            else if (result == DialogResult.No)
+            {
+                // Exit application
+                Application.Exit();
+            }
+            // Cancel does nothing
         }
 
         private void btnStudentRegistration_Click(object sender, EventArgs e)

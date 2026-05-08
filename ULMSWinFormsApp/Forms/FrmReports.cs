@@ -14,7 +14,7 @@ namespace ULMSWinFormsApp.Forms
         public FrmReports()
         {
             InitializeComponent();
-            //LockDropdownsToListOnly();
+            LockDropdownsToListOnly();
         }
 
         // FIX: Prevent typed input in ComboBoxes

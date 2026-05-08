@@ -42,27 +42,30 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(43, 56);
+            label1.Location = new Point(70, 90);
+            label1.Margin = new Padding(5, 0, 5, 0);
             label1.Name = "label1";
-            label1.Size = new Size(89, 20);
+            label1.Size = new Size(142, 32);
             label1.TabIndex = 0;
             label1.Text = "Report Type";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(304, 56);
+            label2.Location = new Point(494, 90);
+            label2.Margin = new Padding(5, 0, 5, 0);
             label2.Name = "label2";
-            label2.Size = new Size(116, 20);
+            label2.Size = new Size(187, 32);
             label2.TabIndex = 1;
             label2.Text = "Student ID Filter";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(525, 37);
+            label3.Location = new Point(859, 90);
+            label3.Margin = new Padding(5, 0, 5, 0);
             label3.Name = "label3";
-            label3.Size = new Size(104, 20);
+            label3.Size = new Size(167, 32);
             label3.TabIndex = 2;
             label3.Text = "Report Output";
             // 
@@ -70,23 +73,26 @@
             // 
             cmbReportType.FormattingEnabled = true;
             cmbReportType.Items.AddRange(new object[] { "Student Summary Report", "Marks Report", "Enrollment Report" });
-            cmbReportType.Location = new Point(43, 116);
+            cmbReportType.Location = new Point(70, 186);
+            cmbReportType.Margin = new Padding(5);
             cmbReportType.Name = "cmbReportType";
-            cmbReportType.Size = new Size(151, 28);
+            cmbReportType.Size = new Size(355, 40);
             cmbReportType.TabIndex = 3;
             // 
             // txtReportStudentId
             // 
-            txtReportStudentId.Location = new Point(304, 116);
+            txtReportStudentId.Location = new Point(494, 186);
+            txtReportStudentId.Margin = new Padding(5);
             txtReportStudentId.Name = "txtReportStudentId";
-            txtReportStudentId.Size = new Size(125, 27);
+            txtReportStudentId.Size = new Size(201, 39);
             txtReportStudentId.TabIndex = 4;
             // 
             // btnGenerateReport
             // 
-            btnGenerateReport.Location = new Point(12, 374);
+            btnGenerateReport.Location = new Point(20, 598);
+            btnGenerateReport.Margin = new Padding(5);
             btnGenerateReport.Name = "btnGenerateReport";
-            btnGenerateReport.Size = new Size(249, 31);
+            btnGenerateReport.Size = new Size(405, 50);
             btnGenerateReport.TabIndex = 5;
             btnGenerateReport.Text = "Generate Report";
             btnGenerateReport.UseVisualStyleBackColor = true;
@@ -94,9 +100,10 @@
             // 
             // btnClearReport
             // 
-            btnClearReport.Location = new Point(304, 374);
+            btnClearReport.Location = new Point(494, 598);
+            btnClearReport.Margin = new Padding(5);
             btnClearReport.Name = "btnClearReport";
-            btnClearReport.Size = new Size(249, 31);
+            btnClearReport.Size = new Size(405, 50);
             btnClearReport.TabIndex = 6;
             btnClearReport.Text = "Clear";
             btnClearReport.UseVisualStyleBackColor = true;
@@ -104,9 +111,10 @@
             // 
             // btnBackReport
             // 
-            btnBackReport.Location = new Point(605, 374);
+            btnBackReport.Location = new Point(983, 598);
+            btnBackReport.Margin = new Padding(5);
             btnBackReport.Name = "btnBackReport";
-            btnBackReport.Size = new Size(249, 31);
+            btnBackReport.Size = new Size(405, 50);
             btnBackReport.TabIndex = 7;
             btnBackReport.Text = "Back";
             btnBackReport.UseVisualStyleBackColor = true;
@@ -114,19 +122,20 @@
             // 
             // txtReportOutput
             // 
-            txtReportOutput.Location = new Point(469, 88);
+            txtReportOutput.Location = new Point(762, 141);
+            txtReportOutput.Margin = new Padding(5);
             txtReportOutput.Multiline = true;
             txtReportOutput.Name = "txtReportOutput";
             txtReportOutput.ReadOnly = true;
             txtReportOutput.ScrollBars = ScrollBars.Vertical;
-            txtReportOutput.Size = new Size(477, 234);
+            txtReportOutput.Size = new Size(773, 372);
             txtReportOutput.TabIndex = 8;
             // 
             // FrmReports
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(982, 573);
+            ClientSize = new Size(1596, 917);
             Controls.Add(txtReportOutput);
             Controls.Add(btnBackReport);
             Controls.Add(btnClearReport);
@@ -136,6 +145,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(5);
             Name = "FrmReports";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Umoja Learning Management System - Reports";
