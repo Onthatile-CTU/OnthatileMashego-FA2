@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-//using ULMSWinFormsApp.Models;
+using ULMSWinFormsApp.Models;
 
 namespace ULMSWinFormsApp.Forms
 {
@@ -17,17 +15,19 @@ namespace ULMSWinFormsApp.Forms
             LockDropdownsToListOnly();
         }
 
-        // FIX: Prevent typed input in ComboBoxes
-        // DropDownStyle.DropDownList makes the combo read-only at design time,
-        //ENFORCES DROPDOWN
+        // FIX: Prevent typed input in ComboBoxes — DropDownList makes combo read-only.
         private void LockDropdownsToListOnly()
         {
             cmbReportType.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
+        // ── Generate Report ──────────────────────────────────────────────────
+
         private async void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            // BUG-05 FIX: Validate inputs before generating
+            // ── Validation ───────────────────────────────────────────────────
+
+            // BUG-05 FIX: Validate report type selection before proceeding
             if (string.IsNullOrWhiteSpace(cmbReportType.Text))
             {
                 MessageBox.Show("Please select a report type.",
@@ -36,57 +36,123 @@ namespace ULMSWinFormsApp.Forms
                 return;
             }
 
-            string reportType = cmbReportType.Text;
-            string studentId = txtReportStudentId.Text;
+            // BUG-10 FIX: Student ID must not be empty
+            string studentId = txtReportStudentId.Text.Trim().ToUpper();
+            if (string.IsNullOrWhiteSpace(studentId))
+            {
+                MessageBox.Show("A valid Student ID is required to generate a report.",
+                                "Validation Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return;
+            }
 
-            // BUG-05 FIX: Replaced Thread.Sleep(4000) with async Task.Delay to avoid
-            // blocking the UI thread. The form now stays responsive during report generation.
+            // BUG-10 FIX: Student must exist in the shared StudentStore
+            if (!StudentStore.TryGetStudentById(studentId, out Student student))
+            {
+                MessageBox.Show($"No registered student found with ID '{studentId}'.\n" +
+                                "Reports can only be generated for registered students.",
+                                "Student Not Found", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                return;
+            }
+
+            // ── Async report generation ──────────────────────────────────────
+
+            string reportType = cmbReportType.Text;
+
+            // BUG-05 FIX: Keep UI responsive — disable button and show status
+            // while report builds on a background thread via Task.Run.
             btnGenerateReport.Enabled = false;
             txtReportOutput.Text = "Generating report, please wait...";
 
-            await Task.Delay(500); // Simulates a non-blocking async data load
+            // BUG-05 FIX: Replaced synchronous UI-thread work with await Task.Run
+            // so the message loop stays alive during report construction.
+            string report = await Task.Run(() => BuildReport(reportType, student));
 
-            StringBuilder report = new StringBuilder();
+            txtReportOutput.Text = report;
+            btnGenerateReport.Enabled = true;
+        }
 
-            report.AppendLine("===== ULMS REPORT =====");
-            report.AppendLine("Report Type: " + reportType);
-            report.AppendLine("Student ID Filter: " + studentId);
-            report.AppendLine("Generated On: " + DateTime.Now);
-            report.AppendLine();
+        // ── Report builder — runs on background thread ───────────────────────
+
+        private static string BuildReport(string reportType, Student student)
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine("===== ULMS REPORT =====");
+            sb.AppendLine("Report Type : " + reportType);
+            sb.AppendLine("Student ID  : " + student.StudentId);
+            sb.AppendLine("Full Name   : " + student.FullName);
+            sb.AppendLine("Email       : " + student.Email);
+            sb.AppendLine("Age         : " + student.Age);
+            sb.AppendLine("Programme   : " + student.Programme);
+            sb.AppendLine("Generated On: " + DateTime.Now);
+            sb.AppendLine();
 
             if (reportType == "Student Summary Report")
             {
-                report.AppendLine("Student Name: John Doe");
-                report.AppendLine("Programme: Software Engineering");
-                report.AppendLine("Status: Active");
+                sb.AppendLine("──── Student Profile ────");
+                sb.AppendLine("Name      : " + student.FullName);
+                sb.AppendLine("Email     : " + student.Email);
+                sb.AppendLine("Age       : " + student.Age);
+                sb.AppendLine("Programme : " + student.Programme);
+                sb.AppendLine("Status    : Active");
             }
             else if (reportType == "Marks Report")
             {
-                // BUG-05 FIX: Corrected average — was hardcoded as 169 (a sum, not an average)
-                double s1 = 78, s2 = 65, s3 = 80;
-                double avg = Math.Round((s1 + s2 + s3) / 3, 2);
-                report.AppendLine("Subject 1: " + s1);
-                report.AppendLine("Subject 2: " + s2);
-                report.AppendLine("Subject 3: " + s3);
-                report.AppendLine("Average: " + avg);
+                sb.AppendLine("──── Marks ────");
+
+                // Pull the student's MarkRecord from StudentStore
+                MarkRecord record = StudentStore.GetMarks(student.StudentId);
+
+                if (record == null)
+                {
+                    sb.AppendLine("No marks captured for this student.");
+                }
+                else
+                {
+                    sb.AppendLine($"  Subject 1 : {record.Subject1}/100");
+                    sb.AppendLine($"  Subject 2 : {record.Subject2}/100");
+                    sb.AppendLine($"  Subject 3 : {record.Subject3}/100");
+                    sb.AppendLine();
+
+                    // BUG-04 FIX: Recalculate average from actual subject values
+                    // rather than trusting the stored Average field, which may have
+                    // been set by the original off-by-one loop.
+                    double avg = Math.Round(
+                        (record.Subject1 + record.Subject2 + record.Subject3) / 3.0, 2);
+
+                    sb.AppendLine($"  Average   : {avg}%");
+                    sb.AppendLine($"  Result    : {record.ResultStatus}");
+                }
             }
             else if (reportType == "Enrollment Report")
             {
-                report.AppendLine("Course 1: Programming 1");
-                report.AppendLine("Course 2: Database Systems");
-                report.AppendLine("Semester: Semester 1");
+                sb.AppendLine("──── Enrolled Courses ────");
+
+                var enrolments = StudentStore.GetEnrolments(student.StudentId);
+
+                if (enrolments.Count == 0)
+                {
+                    sb.AppendLine("  No courses enrolled for this student.");
+                }
+                else
+                {
+                    foreach (var en in enrolments)
+                        sb.AppendLine($"  • {en.CourseName,-35} [{en.Semester}]");
+                }
             }
             else
             {
-                report.AppendLine("No report type selected.");
+                sb.AppendLine("No recognised report type selected.");
             }
 
-            txtReportOutput.Text = report.ToString();
-            btnGenerateReport.Enabled = true;
+            sb.AppendLine();
+            sb.AppendLine("===== END OF REPORT =====");
+            return sb.ToString();
         }
-        
 
-
+        // ── Clear ─────────────────────────────────────────────────────────────
 
         private void btnClearReport_Click(object sender, EventArgs e)
         {
@@ -96,13 +162,11 @@ namespace ULMSWinFormsApp.Forms
             txtReportStudentId.Focus();
         }
 
+        // ── Back ──────────────────────────────────────────────────────────────
+
         private void btnBackReport_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-
-
-
     }
 }
