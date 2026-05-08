@@ -39,68 +39,76 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(169, 126);
+            label1.Location = new Point(275, 202);
+            label1.Margin = new Padding(5, 0, 5, 0);
             label1.Name = "label1";
-            label1.Size = new Size(75, 20);
+            label1.Size = new Size(121, 32);
             label1.TabIndex = 0;
             label1.Text = "Username";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(169, 200);
+            label2.Location = new Point(275, 320);
+            label2.Margin = new Padding(5, 0, 5, 0);
             label2.Name = "label2";
-            label2.Size = new Size(70, 20);
+            label2.Size = new Size(111, 32);
             label2.TabIndex = 1;
             label2.Text = "Password";
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(295, 123);
+            txtUsername.Location = new Point(479, 197);
+            txtUsername.Margin = new Padding(5, 5, 5, 5);
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(215, 27);
+            txtUsername.Size = new Size(347, 39);
             txtUsername.TabIndex = 2;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(295, 193);
+            txtPassword.Location = new Point(479, 309);
+            txtPassword.Margin = new Padding(5, 5, 5, 5);
             txtPassword.Name = "txtPassword";
-            txtPassword.Size = new Size(215, 27);
+            txtPassword.Size = new Size(347, 39);
             txtPassword.TabIndex = 3;
             txtPassword.UseSystemPasswordChar = true;
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(295, 261);
+            btnLogin.Location = new Point(479, 418);
+            btnLogin.Margin = new Padding(5, 5, 5, 5);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(94, 29);
+            btnLogin.Size = new Size(153, 46);
             btnLogin.TabIndex = 4;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = true;
-            btnLogin.Click += this.btnLogin_Click;
+            btnLogin.Click += btnLogin_Click;
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(416, 261);
+            btnClear.Location = new Point(676, 418);
+            btnClear.Margin = new Padding(5, 5, 5, 5);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(94, 29);
+            btnClear.Size = new Size(153, 46);
             btnClear.TabIndex = 5;
             btnClear.Text = "Clear";
             btnClear.UseVisualStyleBackColor = true;
             // 
             // FrmLogin
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1300, 720);
             Controls.Add(btnClear);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(5, 5, 5, 5);
             Name = "FrmLogin";
             Text = "Umoja Learning Management System - Login";
+            Load += FrmLogin_Load;
             ResumeLayout(false);
             PerformLayout();
         }

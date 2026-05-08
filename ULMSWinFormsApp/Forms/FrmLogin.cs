@@ -48,5 +48,10 @@ namespace ULMSWinFormsApp
             txtUsername.Focus();
         }
 
+        private void FrmLogin_Load(object sender, EventArgs e)
+        {
+            // Code to run when the form loads
+        }
+
     }
 }

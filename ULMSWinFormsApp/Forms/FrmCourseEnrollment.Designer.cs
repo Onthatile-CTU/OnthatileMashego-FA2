@@ -45,41 +45,46 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(49, 26);
+            label1.Location = new Point(80, 42);
+            label1.Margin = new Padding(5, 0, 5, 0);
             label1.Name = "label1";
-            label1.Size = new Size(79, 20);
+            label1.Size = new Size(127, 32);
             label1.TabIndex = 0;
             label1.Text = "Student ID";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(49, 75);
+            label2.Location = new Point(80, 120);
+            label2.Margin = new Padding(5, 0, 5, 0);
             label2.Name = "label2";
-            label2.Size = new Size(104, 20);
+            label2.Size = new Size(168, 32);
             label2.TabIndex = 1;
             label2.Text = "Student Name";
             // 
             // txtEnrollStudentId
             // 
-            txtEnrollStudentId.Location = new Point(176, 26);
+            txtEnrollStudentId.Location = new Point(286, 42);
+            txtEnrollStudentId.Margin = new Padding(5, 5, 5, 5);
             txtEnrollStudentId.Name = "txtEnrollStudentId";
-            txtEnrollStudentId.Size = new Size(224, 27);
+            txtEnrollStudentId.Size = new Size(362, 39);
             txtEnrollStudentId.TabIndex = 2;
             // 
             // txtEnrollStudentName
             // 
-            txtEnrollStudentName.Location = new Point(176, 75);
+            txtEnrollStudentName.Location = new Point(286, 120);
+            txtEnrollStudentName.Margin = new Padding(5, 5, 5, 5);
             txtEnrollStudentName.Name = "txtEnrollStudentName";
-            txtEnrollStudentName.Size = new Size(224, 27);
+            txtEnrollStudentName.Size = new Size(362, 39);
             txtEnrollStudentName.TabIndex = 3;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(57, 142);
+            label3.Location = new Point(93, 227);
+            label3.Margin = new Padding(5, 0, 5, 0);
             label3.Name = "label3";
-            label3.Size = new Size(54, 20);
+            label3.Size = new Size(88, 32);
             label3.TabIndex = 4;
             label3.Text = "Course";
             // 
@@ -87,17 +92,19 @@
             // 
             cmbCourse.FormattingEnabled = true;
             cmbCourse.Items.AddRange(new object[] { "Programming 1", "Database Systems", "Web Development", "", "Software Testing" });
-            cmbCourse.Location = new Point(176, 142);
+            cmbCourse.Location = new Point(286, 227);
+            cmbCourse.Margin = new Padding(5, 5, 5, 5);
             cmbCourse.Name = "cmbCourse";
-            cmbCourse.Size = new Size(224, 28);
+            cmbCourse.Size = new Size(362, 40);
             cmbCourse.TabIndex = 5;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(55, 201);
+            label4.Location = new Point(89, 322);
+            label4.Margin = new Padding(5, 0, 5, 0);
             label4.Name = "label4";
-            label4.Size = new Size(70, 20);
+            label4.Size = new Size(113, 32);
             label4.TabIndex = 6;
             label4.Text = "Semester";
             // 
@@ -105,16 +112,18 @@
             // 
             cmbSemester.FormattingEnabled = true;
             cmbSemester.Items.AddRange(new object[] { "Semester 1", "", "Semester 2" });
-            cmbSemester.Location = new Point(171, 206);
+            cmbSemester.Location = new Point(278, 330);
+            cmbSemester.Margin = new Padding(5, 5, 5, 5);
             cmbSemester.Name = "cmbSemester";
-            cmbSemester.Size = new Size(229, 28);
+            cmbSemester.Size = new Size(370, 40);
             cmbSemester.TabIndex = 7;
             // 
             // btnEnroll
             // 
-            btnEnroll.Location = new Point(153, 287);
+            btnEnroll.Location = new Point(249, 459);
+            btnEnroll.Margin = new Padding(5, 5, 5, 5);
             btnEnroll.Name = "btnEnroll";
-            btnEnroll.Size = new Size(132, 47);
+            btnEnroll.Size = new Size(214, 75);
             btnEnroll.TabIndex = 8;
             btnEnroll.Text = "Enroll Student";
             btnEnroll.UseVisualStyleBackColor = true;
@@ -122,9 +131,10 @@
             // 
             // btnClearEnrollment
             // 
-            btnClearEnrollment.Location = new Point(309, 287);
+            btnClearEnrollment.Location = new Point(502, 459);
+            btnClearEnrollment.Margin = new Padding(5, 5, 5, 5);
             btnClearEnrollment.Name = "btnClearEnrollment";
-            btnClearEnrollment.Size = new Size(132, 47);
+            btnClearEnrollment.Size = new Size(214, 75);
             btnClearEnrollment.TabIndex = 9;
             btnClearEnrollment.Text = "Clear";
             btnClearEnrollment.UseVisualStyleBackColor = true;
@@ -132,9 +142,10 @@
             // 
             // btnBackEnrollment
             // 
-            btnBackEnrollment.Location = new Point(473, 287);
+            btnBackEnrollment.Location = new Point(769, 459);
+            btnBackEnrollment.Margin = new Padding(5, 5, 5, 5);
             btnBackEnrollment.Name = "btnBackEnrollment";
-            btnBackEnrollment.Size = new Size(132, 47);
+            btnBackEnrollment.Size = new Size(214, 75);
             btnBackEnrollment.TabIndex = 10;
             btnBackEnrollment.Text = "Back";
             btnBackEnrollment.UseVisualStyleBackColor = true;
@@ -142,18 +153,19 @@
             // 
             // txtEnrollmentOutput
             // 
-            txtEnrollmentOutput.Location = new Point(473, 23);
+            txtEnrollmentOutput.Location = new Point(769, 37);
+            txtEnrollmentOutput.Margin = new Padding(5, 5, 5, 5);
             txtEnrollmentOutput.Multiline = true;
             txtEnrollmentOutput.Name = "txtEnrollmentOutput";
             txtEnrollmentOutput.ReadOnly = true;
-            txtEnrollmentOutput.Size = new Size(355, 227);
+            txtEnrollmentOutput.Size = new Size(574, 361);
             txtEnrollmentOutput.TabIndex = 11;
             // 
             // FrmCourseEnrollment
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(882, 453);
+            ClientSize = new Size(1433, 725);
             Controls.Add(txtEnrollmentOutput);
             Controls.Add(btnBackEnrollment);
             Controls.Add(btnClearEnrollment);
@@ -166,9 +178,11 @@
             Controls.Add(txtEnrollStudentId);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(5, 5, 5, 5);
             Name = "FrmCourseEnrollment";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Umoja Learning Management System - Course Enrolment";
+            Load += FrmCourseEnrollment_Load;
             ResumeLayout(false);
             PerformLayout();
         }

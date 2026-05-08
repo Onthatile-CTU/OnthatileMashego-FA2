@@ -13,6 +13,15 @@ namespace ULMSWinFormsApp.Forms
         public FrmReports()
         {
             InitializeComponent();
+            LockDropdownsToListOnly();
+        }
+
+        // FIX: Prevent typed input in ComboBoxes
+        // DropDownStyle.DropDownList makes the combo read-only at design time,
+        //ENFORCES DROPDOWN
+        private void LockDropdownsToListOnly()
+        {
+            cmbReportType.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private async void btnGenerateReport_Click(object sender, EventArgs e)

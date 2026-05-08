@@ -18,6 +18,35 @@ namespace ULMSWinFormsApp.Forms
 
         private void btnCalculateResults_Click(object sender, EventArgs e)
         {
+
+            // FIX: Empty-field validation 
+            if (string.IsNullOrWhiteSpace(txtMarkStudentId.Text) ||
+                string.IsNullOrWhiteSpace(txtMarkStudentName.Text) ||
+                string.IsNullOrWhiteSpace(txtSubject1.Text) ||
+                string.IsNullOrWhiteSpace(txtSubject2.Text) ||
+                string.IsNullOrWhiteSpace(txtSubject3.Text))
+            {
+                MessageBox.Show("All fields are required.",
+                                "Validation Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return;
+            }
+
+            // FIX: Verify student is registered (ID + Name must match) 
+            string studentId = txtMarkStudentId.Text.Trim().ToUpper();
+            string studentName = txtMarkStudentName.Text.Trim();
+
+            if (!StudentStore.TryGetStudent(studentId, studentName, out Student student))
+            {
+                MessageBox.Show(
+                    $"No registered student found with ID '{studentId}' and " +
+                    $"name '{studentName}'.\n\n" +
+                    "Marks can only be captured for registered students. " +
+                    "Please check the ID and name match the registration exactly.",
+                    "Student Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             // BUG-03 FIX: Validate that all mark fields contain numeric values
             if (!double.TryParse(txtSubject1.Text, out double subject1) ||
                 !double.TryParse(txtSubject2.Text, out double subject2) ||
@@ -50,19 +79,30 @@ namespace ULMSWinFormsApp.Forms
                 return;
             }
 
-            MarkRecord record = new MarkRecord();
+            /*MarkRecord record = new MarkRecord();
 
             record.StudentId = txtMarkStudentId.Text.Trim();
             record.StudentName = txtMarkStudentName.Text.Trim();
             record.Subject1 = subject1;
             record.Subject2 = subject2;
-            record.Subject3 = subject3;
+            record.Subject3 = subject3;*/
+
+            MarkRecord record = new MarkRecord
+            {
+                StudentId = student.StudentId,
+                StudentName = student.FullName,  // use stored name to ensure consistency
+                Subject1 = subject1,
+                Subject2 = subject2,
+                Subject3 = subject3,
+                // BUG-04 FIX: wrap sum in parentheses — previously only Subject3 was divided
+                Average = Math.Round((subject1 + subject2 + subject3) / 3, 2)
+            };
 
             // BUG-04 FIX: Corrected average calculation.
             // Original faulty line: record.Subject1 + record.Subject2 + record.Subject3 / 3
             // Due to operator precedence, only Subject3 was divided by 3, not the total.
             // Fix: wrap the sum in parentheses so all three are summed before dividing.
-            record.Average = (record.Subject1 + record.Subject2 + record.Subject3) / 3;
+            //record.Average = (record.Subject1 + record.Subject2 + record.Subject3) / 3;
 
             if (record.Average >= 50)
             {
@@ -73,14 +113,18 @@ namespace ULMSWinFormsApp.Forms
                 record.ResultStatus = "FAIL";
             }
 
+            // Persist in the shared store so FrmReports can retrieve it
+            StudentStore.SaveMarks(record);
+
             txtMarksOutput.Text =
                 "Marks processed successfully!" + Environment.NewLine +
-                "Student ID: " + record.StudentId + Environment.NewLine +
+                "──────────────────────────────────" + Environment.NewLine +
+                "Student ID  : " + record.StudentId + Environment.NewLine +
                 "Student Name: " + record.StudentName + Environment.NewLine +
-                "Subject 1: " + record.Subject1 + Environment.NewLine +
-                "Subject 2: " + record.Subject2 + Environment.NewLine +
-                "Subject 3: " + record.Subject3 + Environment.NewLine +
-                "Average: " + Math.Round(record.Average, 2) + Environment.NewLine +
+                "Subject 1   : " + record.Subject1 + Environment.NewLine +
+                "Subject 2   : " + record.Subject2 + Environment.NewLine +
+                "Subject 3   : " + record.Subject3 + Environment.NewLine +
+                "Average     : " + record.Average + Environment.NewLine +
                 "Final Result: " + record.ResultStatus;
         }
 
@@ -100,6 +144,10 @@ namespace ULMSWinFormsApp.Forms
             this.Close();
         }
 
+        private void FrmMarksCapture_Load(object sender, EventArgs e)
+        {
+            // Code to run when the form loads
+        }
 
     }
 }
