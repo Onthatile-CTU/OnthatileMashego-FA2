@@ -17,13 +17,13 @@ namespace ULMSWinFormsApp.Forms
             //LockDropdownsToListOnly();
         }
 
-        /*// FIX: Prevent typed input in ComboBoxes
+        // FIX: Prevent typed input in ComboBoxes
         // DropDownStyle.DropDownList makes the combo read-only at design time,
         //ENFORCES DROPDOWN
         private void LockDropdownsToListOnly()
         {
             cmbReportType.DropDownStyle = ComboBoxStyle.DropDownList;
-        }*/
+        }
 
         private async void btnGenerateReport_Click(object sender, EventArgs e)
         {
@@ -84,6 +84,9 @@ namespace ULMSWinFormsApp.Forms
             txtReportOutput.Text = report.ToString();
             btnGenerateReport.Enabled = true;
         }
+        
+
+
 
         private void btnClearReport_Click(object sender, EventArgs e)
         {
